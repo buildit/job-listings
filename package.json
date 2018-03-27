@@ -6,7 +6,9 @@
   "scripts": {
     "clean": "del lib/*",
     "build": "babel src -d lib",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "npm run build -- --watch",
+    "lint": "eslint src/",
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,9 @@
     "url": "https://github.com/buildit/fetch-job-listings/issues"
   },
   "homepage": "https://github.com/buildit/fetch-job-listings#readme",
+  "dependencies": {
+    "cross-fetch": "^2.1.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
