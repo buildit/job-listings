@@ -29,13 +29,14 @@ export function getJobListingUrl(companyId, jobUuid, trId) {
  *
  * @see https://dev.smartrecruiters.com/customer-api/posting-api/endpoints/postings/
  *
- * @param {*} companyId   The company ID (e.g. "WiproDigital")
- * @param {*} customFieldId
+ * @param {*} companyId           The company ID (e.g. "WiproDigital")
+ * @param {*} customFieldId       Optional custom field ID to filter results on
+ * @param {*} customFieldValueId  Optional custom field value to use with the field ID
  */
-export async function getJobPostings(companyId, customFieldId) {
-  const queryString = customFieldId ? `?customFieldId=${customFieldId}` : '';
+export async function getJobPostings(companyId, customFieldId, customFieldValueId) {
+  const queryString = customFieldId ? `?custom_field.${customFieldId}=${customFieldValueId}` : '';
   const url = getPostingEndpointUrl(companyId) + queryString;
   const response = await fetch(url);
-  const json = response.json();
+  const json = await response.json();
   return json.content; // actual jobs array
 }

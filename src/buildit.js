@@ -1,15 +1,10 @@
 import { getJobListingUrl, getJobPostings } from './sr-api';
-
-const wiproDigitalId = 'WiproDigital';
-const builditCustomFieldId = 'custom_field.5880c55be4b0cfde272956ad=83455af9-c888-4221-9312-4750b5a09bf5';
-const builditTrId = '2f4a2735-7172-45dd-aca7-63618dca8aff';
-
-/**
- * Fetches all currently advertised Buildit jobs.
- */
-export async function getBuilditJobPostings() {
-  return getJobPostings(wiproDigitalId, builditCustomFieldId);
-}
+import {
+  wiproDigitalId,
+  builditTrId,
+  builditCustomFieldId,
+  builditCustomFieldValue,
+} from './constants';
 
 /**
  * Constructs the full URL to a Buildit job listing page on SmartRecruiters.
@@ -23,4 +18,11 @@ export async function getBuilditJobPostings() {
  */
 export function getBuilditJobListingUrl(jobUuid) {
   return getJobListingUrl(wiproDigitalId, jobUuid, builditTrId);
+}
+
+/**
+ * Fetches all currently advertised Buildit jobs.
+ */
+export async function getBuilditJobPostings() {
+  return getJobPostings(wiproDigitalId, builditCustomFieldId, builditCustomFieldValue);
 }
