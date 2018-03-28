@@ -1,7 +1,7 @@
 {
-  "name": "@buildit/fetch-job-listings",
+  "name": "@buildit/job-listings",
   "version": "0.1.0",
-  "description": "Small JS library for fetching job listings data from SmartRecruiter's API",
+  "description": "Small JS library for fetching Buildit job listings data from SmartRecruiter's API",
   "main": "lib/index.js",
   "scripts": {
     "clean": "del lib/*",

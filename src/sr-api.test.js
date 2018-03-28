@@ -1,5 +1,6 @@
 import { URL } from 'url';
 import * as srApi from './sr-api';
+import JobPosting from './job-posting';
 import {
   wiproDigitalId as companyId,
   builditTrId as trId,
@@ -9,45 +10,45 @@ import {
 
 const jobUuid = '22d904e8-27cd-41d6-b850-f03528167654';
 
-describe('getJobListingUrl()', () => {
+describe('getJobAdUrl()', () => {
   test('Returns string', () => {
-    const returnVal = srApi.getJobListingUrl(companyId, jobUuid);
+    const returnVal = srApi.getJobAdUrl(companyId, jobUuid);
     expect(typeof returnVal).toBe('string');
   });
 
   test('URL path contains companyId', () => {
-    const url = new URL(srApi.getJobListingUrl(companyId, jobUuid));
+    const url = new URL(srApi.getJobAdUrl(companyId, jobUuid));
     const path = url.pathname;
     expect(path).toEqual(expect.stringContaining(companyId));
   });
 
   test('URL path contains jobUuid', () => {
-    const url = new URL(srApi.getJobListingUrl(companyId, jobUuid));
+    const url = new URL(srApi.getJobAdUrl(companyId, jobUuid));
     const path = url.pathname;
     expect(path).toEqual(expect.stringContaining(jobUuid));
   });
 
   test('URL has no query string when no trId is set', () => {
-    const returnVal = srApi.getJobListingUrl(companyId, jobUuid);
+    const returnVal = srApi.getJobAdUrl(companyId, jobUuid);
     const url = new URL(returnVal);
     expect(returnVal).not.toEqual(expect.stringContaining('?'));
     expect(url.search).toBe('');
   });
 
   test('URL has correct query string when trId is set', () => {
-    const url = new URL(srApi.getJobListingUrl(companyId, jobUuid, trId));
+    const url = new URL(srApi.getJobAdUrl(companyId, jobUuid, trId));
     expect(url.searchParams.get('trid')).toBe(trId);
   });
 });
 
-describe('getJobPostings()', () => {
+describe('getJobPostingsData()', () => {
   test('returns promise that resolves to an array', async () => {
-    const returnVal = await srApi.getJobPostings(companyId);
+    const returnVal = await srApi.getJobPostingsData(companyId);
     expect(Array.isArray(returnVal)).toBe(true);
   });
 
   test('returns only jobs matching the customField ID & value, when set', async () => {
-    const jobs = await srApi.getJobPostings(companyId, customFieldId, customFieldValueId);
+    const jobs = await srApi.getJobPostingsData(companyId, customFieldId, customFieldValueId);
 
     // Try to find a job that does NOT contain the custom field
     let nonMatchingJobFound = false;
@@ -63,5 +64,42 @@ describe('getJobPostings()', () => {
       }
     }
     expect(nonMatchingJobFound).toBe(false);
+  });
+});
+
+describe('getJobPostings()', () => {
+  test('returns promise that resolves to an array', async () => {
+    const returnVal = await srApi.getJobPostings(companyId);
+    expect(Array.isArray(returnVal)).toBe(true);
+  });
+
+  test('returns only JobPosting objects', async () => {
+    const jobs = await srApi.getJobPostings(companyId);
+
+    // Try to find a job that is NOT a JobPosting instance
+    let nonJobPostingFound = false;
+    for (let i = 0; i < jobs.length; i += 1) {
+      const job = jobs[i];
+      if (!(job instanceof JobPosting)) {
+        nonJobPostingFound = true;
+        break;
+      }
+    }
+    expect(nonJobPostingFound).toBe(false);
+  });
+
+  test('passes trId to all JobPosting objects', async () => {
+    const jobs = await srApi.getJobPostings(companyId, undefined, undefined, trId);
+
+    // Try to find a job that does NOT have the trId set
+    let nonMatchingTrIdFound = false;
+    for (let i = 0; i < jobs.length; i += 1) {
+      const job = jobs[i];
+      if (job.trId !== trId) {
+        nonMatchingTrIdFound = true;
+        break;
+      }
+    }
+    expect(nonMatchingTrIdFound).toBe(false);
   });
 });

@@ -1,4 +1,4 @@
-import { getJobListingUrl, getJobPostings } from './sr-api';
+import { getJobPostings } from './sr-api';
 import {
   wiproDigitalId,
   builditTrId,
@@ -7,22 +7,13 @@ import {
 } from './constants';
 
 /**
- * Constructs the full URL to a Buildit job listing page on SmartRecruiters.
+ * Fetches all currently advertised Buildit jobs as JobPosting objects.
  *
- * Note: This appends a tracking ID that will associate job
- * applications with the "Buildit website" custom source in
- * SR's analytics. The URLs returned by this function must
- * therefore _only_ be used within the Buildit website.
+ * Each JobPosting object will be initalised with the tracking ID for the
+ * "Buildit website" source in SmartRecruiters' analytics.
  *
- * @param {*} jobUuid
+ * @return {Promise<Array>} Promise that resolves to an array of job postings.
  */
-export function getBuilditJobListingUrl(jobUuid) {
-  return getJobListingUrl(wiproDigitalId, jobUuid, builditTrId);
-}
-
-/**
- * Fetches all currently advertised Buildit jobs.
- */
-export async function getBuilditJobPostings() {
-  return getJobPostings(wiproDigitalId, builditCustomFieldId, builditCustomFieldValue);
+export async function getBuilditJobPostings() { // eslint-disable-line import/prefer-default-export
+  return getJobPostings(wiproDigitalId, builditCustomFieldId, builditCustomFieldValue, builditTrId);
 }
