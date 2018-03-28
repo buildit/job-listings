@@ -37,9 +37,24 @@ const srPostingData = {
     label: 'Mid-Senior Level',
   },
   customField: [
-    {},
-    {},
-    {},
+    {
+      fieldId: '5880c55be4b0cfde272956ad',
+      fieldLabel: 'Brands',
+      valueId: '83455af9-c888-4221-9312-4750b5a09bf5',
+      valueLabel: 'Buildit',
+    },
+    {
+      fieldId: 'COUNTRY',
+      fieldLabel: 'Country',
+      valueId: 'pl',
+      valueLabel: 'Poland',
+    },
+    {
+      fieldId: '58b7e4dce4b09a6d37a0ce40',
+      fieldLabel: 'Department',
+      valueId: '921917',
+      valueLabel: 'Buildit Front End Engineering',
+    },
   ],
   ref: 'https://api.smartrecruiters.com/api-v1/companies/WiproDigital/postings/743999665860002',
   creator: {
