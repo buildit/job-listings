@@ -1,5 +1,5 @@
-import * as builditApi from './buildit';
-import { builditTrId } from './constants';
+import * as builditApi from '../buildit';
+import { builditTrId } from '../constants';
 
 describe('getBuilditJobPostings()', () => {
   test('all returned JobPosting objects have the correct tracking ID', async () => {

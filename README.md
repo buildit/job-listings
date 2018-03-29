@@ -62,7 +62,7 @@ Currently, the library only exports the asynchronous `getBuilditJobPostings()` f
 
 The source code is located in the `src/` directory. It's ES6 style JavaScript and follows [AirBnb's coding standards](https://github.com/airbnb/javascript).
 
-Our [Jest](https://facebook.github.io/jest/) unit tests sit alongside the modules they test and use the following file naming convention: `[module name].test.js`. We have 100% code coverage and aim to maintain that.
+Our [Jest](https://facebook.github.io/jest/) unit tests sit in the `__tests__` folder and use the following file naming convention: `[module name].test.js`. We have 100% code coverage and aim to maintain that.
 
 ### Building
 

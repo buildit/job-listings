@@ -1,11 +1,11 @@
 import { URL } from 'url';
-import * as srApi from './sr-api';
+import * as srApi from '../sr-api';
 import {
   wiproDigitalId as companyId,
   builditTrId as trId,
   builditCustomFieldId as customFieldId,
   builditCustomFieldValue as customFieldValueId,
-} from './constants';
+} from '../constants';
 
 const jobUuid = '22d904e8-27cd-41d6-b850-f03528167654';
 

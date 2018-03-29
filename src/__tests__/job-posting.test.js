@@ -1,10 +1,10 @@
-import JobPosting, { getJobPostings } from './job-posting';
-import { getJobAdUrl } from './sr-api';
+import JobPosting, { getJobPostings } from '../job-posting';
+import { getJobAdUrl } from '../sr-api';
 import {
   builditTrId as trId,
   countryCodes,
   wiproDigitalId as companyId,
-} from './constants';
+} from '../constants';
 
 const srPostingData = {
   id: '743999665860002',
