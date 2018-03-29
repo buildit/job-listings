@@ -1,4 +1,4 @@
-import { getJobPostings } from './sr-api';
+import { getJobPostings } from './job-posting';
 import {
   wiproDigitalId,
   builditTrId,

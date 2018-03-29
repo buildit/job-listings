@@ -1,5 +1,4 @@
 import fetch from 'cross-fetch';
-import JobPosting from './job-posting';
 
 /**
  * Constructs the full URL for SmartRecruiters' Posting API
@@ -44,20 +43,4 @@ export async function getJobPostingsData(companyId, customFieldId, customFieldVa
   const response = await fetch(url);
   const json = await response.json();
   return json.content; // actual jobs array
-}
-
-/**
- * Fetches job postings from SmartRecruiters' and returns them as JobPosting
- * objects.
- *
- * @param {*} companyId           The company ID (e.g. "WiproDigital")
- * @param {*} customFieldId       Optional custom field ID to filter results on
- * @param {*} customFieldValueId  Optional custom field value to use with the field ID
- * @param {*} trId                Optional tracking ID
- *
- * @return {Promise<Array>} Promise that resolves to an array of job posting objects.
- */
-export async function getJobPostings(companyId, customFieldId, customFieldValueId, trId) {
-  const postingsData = await getJobPostingsData(companyId, customFieldId, customFieldValueId);
-  return postingsData.map(posting => new JobPosting(posting, trId));
 }

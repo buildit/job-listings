@@ -1,6 +1,5 @@
 import { URL } from 'url';
 import * as srApi from './sr-api';
-import JobPosting from './job-posting';
 import {
   wiproDigitalId as companyId,
   builditTrId as trId,
@@ -64,42 +63,5 @@ describe('getJobPostingsData()', () => {
       }
     }
     expect(nonMatchingJobFound).toBe(false);
-  });
-});
-
-describe('getJobPostings()', () => {
-  test('returns promise that resolves to an array', async () => {
-    const returnVal = await srApi.getJobPostings(companyId);
-    expect(Array.isArray(returnVal)).toBe(true);
-  });
-
-  test('returns only JobPosting objects', async () => {
-    const jobs = await srApi.getJobPostings(companyId);
-
-    // Try to find a job that is NOT a JobPosting instance
-    let nonJobPostingFound = false;
-    for (let i = 0; i < jobs.length; i += 1) {
-      const job = jobs[i];
-      if (!(job instanceof JobPosting)) {
-        nonJobPostingFound = true;
-        break;
-      }
-    }
-    expect(nonJobPostingFound).toBe(false);
-  });
-
-  test('passes trId to all JobPosting objects', async () => {
-    const jobs = await srApi.getJobPostings(companyId, undefined, undefined, trId);
-
-    // Try to find a job that does NOT have the trId set
-    let nonMatchingTrIdFound = false;
-    for (let i = 0; i < jobs.length; i += 1) {
-      const job = jobs[i];
-      if (job.trId !== trId) {
-        nonMatchingTrIdFound = true;
-        break;
-      }
-    }
-    expect(nonMatchingTrIdFound).toBe(false);
   });
 });
