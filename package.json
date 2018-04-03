@@ -8,7 +8,8 @@
     "build": "babel src -d lib",
     "watch": "npm run build -- --watch",
     "lint": "eslint src/",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "prepublish": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
