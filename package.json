@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Small JS library for fetching Buildit job listings data from SmartRecruiter's API",
   "main": "lib/index.js",
+  "files": [
+    "lib/",
+    "src/*.js"
+  ],
   "scripts": {
     "clean": "del lib/*",
     "build": "babel src -d lib",
