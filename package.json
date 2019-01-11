@@ -36,15 +36,15 @@
   },
   "homepage": "https://github.com/buildit/fetch-job-listings#readme",
   "dependencies": {
-    "cross-fetch": "^2.1.0"
+    "cross-fetch": "^2.2.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "del-cli": "^1.1.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.9.0",
-    "jest": "^22.4.3"
+    "eslint-plugin-import": "^2.14.0",
+    "jest": "^22.4.4"
   }
 }
