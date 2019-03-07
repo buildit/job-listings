@@ -163,4 +163,3 @@ describe('getJobPostings()', () => {
     expect(nonMatchingTrIdFound).toBe(false);
   });
 });
-
