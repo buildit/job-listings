@@ -31,6 +31,8 @@ export default class JobPosting {
     };
     this.typeOfEmployment = srJobPosting.typeOfEmployment.label;
     this.trId = trId;
+    this.industry = srJobPosting.industry.label;
+    this.datePosted = srJobPosting.releasedDate;
   }
 
   /**
