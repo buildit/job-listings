@@ -1,5 +1,5 @@
-import { getName } from 'country-list';
 import { getJobAdUrl, getJobPostingsData } from './sr-api';
+import JobLocation from './job-location';
 
 /**
  * A job posting.
@@ -10,17 +10,7 @@ export default class JobPosting {
     this.title = srJobPosting.name;
     this.companyId = srJobPosting.company.identifier;
     this.experienceLevel = srJobPosting.experienceLevel.label;
-    this.location = {
-      city: srJobPosting.location.city,
-      region: srJobPosting.location.region,
-      countryCode: srJobPosting.location.country,
-      get country() {
-        return getName(this.countryCode);
-      },
-      get citySlug() {
-        return encodeURIComponent(this.city.toLocaleLowerCase());
-      },
-    };
+    this.location = new JobLocation(srJobPosting.location);
     this.typeOfEmployment = srJobPosting.typeOfEmployment.label;
     this.trId = trId;
     this.industry = srJobPosting.industry.label;

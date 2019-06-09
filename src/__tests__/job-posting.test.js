@@ -1,5 +1,5 @@
-import { getName } from 'country-list';
 import JobPosting, { getJobPostings } from '../job-posting';
+import JobLocation from '../job-location';
 import { getJobAdUrl } from '../sr-api';
 import {
   builditTrId as trId,
@@ -71,8 +71,6 @@ const srPostingData = {
   },
 };
 
-const testKnownCountries = ['de', 'us', 'in'];
-
 describe('constructor()', () => {
   test(('Initialises members correctly'), () => {
     const job = new JobPosting(srPostingData);
@@ -80,6 +78,7 @@ describe('constructor()', () => {
     expect(job.title).toBe(srPostingData.name);
     expect(job.companyId).toBe(srPostingData.company.identifier);
     expect(job.experienceLevel).toBe(srPostingData.experienceLevel.label);
+    expect(job.location).toBeInstanceOf(JobLocation);
     expect(job.location.city).toBe(srPostingData.location.city);
     expect(job.location.region).toBe(srPostingData.location.region);
     expect(job.location.countryCode).toBe(srPostingData.location.country);
@@ -90,31 +89,6 @@ describe('constructor()', () => {
   test(('Initialises tracking ID when one is provided'), () => {
     const job = new JobPosting(srPostingData, trId);
     expect(job.trId).toBe(trId);
-  });
-});
-
-describe('country getter', () => {
-  test('Returns country names for known country codes', () => {
-    const { location } = new JobPosting(srPostingData);
-    testKnownCountries.forEach((countryCode) => {
-      location.countryCode = countryCode;
-      expect(location.country).toBe(getName(countryCode));
-    });
-  });
-
-  test('Returns undefined for unknown country codes', () => {
-    const { location } = new JobPosting(srPostingData);
-    location.countryCode = 'xxx';
-    expect(location.country).toBeUndefined();
-  });
-});
-
-describe('city slug getter', () => {
-  test('Returns a URI-friendly slug', () => {
-    const testCityName = 'Weird city; name: with / special characters?';
-    const { location } = new JobPosting(srPostingData);
-    location.city = testCityName;
-    expect(location.citySlug).toBe(encodeURIComponent(testCityName.toLocaleLowerCase()));
   });
 });
 
@@ -136,7 +110,6 @@ describe('url getter', () => {
     ));
   });
 });
-
 
 describe('getJobPostings()', () => {
   test('returns promise that resolves to an array', async () => {
