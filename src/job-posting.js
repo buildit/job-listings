@@ -1,16 +1,5 @@
+import { getName } from 'country-list';
 import { getJobAdUrl, getJobPostingsData } from './sr-api';
-import { countryCodes } from './constants';
-
-/**
- * Fetches the country name associated with the given 2 letter country code.
- *
- * Note, if the country code is not recognised, undefined is returned.
- *
- * @param {String} countryCode   2 letter country code (as provided by SR's data)
- */
-function getCountryName(countryCode) {
-  return countryCodes[countryCode];
-}
 
 /**
  * A job posting.
@@ -26,7 +15,7 @@ export default class JobPosting {
       region: srJobPosting.location.region,
       countryCode: srJobPosting.location.country,
       get country() {
-        return getCountryName(this.countryCode);
+        return getName(this.countryCode);
       },
     };
     this.typeOfEmployment = srJobPosting.typeOfEmployment.label;

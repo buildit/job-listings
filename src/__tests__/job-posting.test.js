@@ -1,8 +1,8 @@
+import { getName } from 'country-list';
 import JobPosting, { getJobPostings } from '../job-posting';
 import { getJobAdUrl } from '../sr-api';
 import {
   builditTrId as trId,
-  countryCodes,
   wiproDigitalId as companyId,
 } from '../constants';
 
@@ -71,6 +71,8 @@ const srPostingData = {
   },
 };
 
+const testKnownCountries = ['de', 'us', 'in'];
+
 describe('constructor()', () => {
   test(('Initialises members correctly'), () => {
     const job = new JobPosting(srPostingData);
@@ -94,13 +96,13 @@ describe('constructor()', () => {
 describe('country getter', () => {
   test('Returns country names for known country codes', () => {
     const { location } = new JobPosting(srPostingData);
-    Object.keys(countryCodes).forEach((countryCode) => {
+    testKnownCountries.forEach((countryCode) => {
       location.countryCode = countryCode;
-      expect(location.country).toBe(countryCodes[countryCode]);
+      expect(location.country).toBe(getName(countryCode));
     });
   });
 
-  test('Throws a ReferenceError for unknown country codes', () => {
+  test('Returns undefined for unknown country codes', () => {
     const { location } = new JobPosting(srPostingData);
     location.countryCode = 'xxx';
     expect(location.country).toBeUndefined();
