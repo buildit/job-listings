@@ -17,6 +17,9 @@ export default class JobPosting {
       get country() {
         return getName(this.countryCode);
       },
+      get citySlug() {
+        return encodeURIComponent(this.city.toLocaleLowerCase());
+      },
     };
     this.typeOfEmployment = srJobPosting.typeOfEmployment.label;
     this.trId = trId;

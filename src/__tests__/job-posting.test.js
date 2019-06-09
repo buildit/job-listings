@@ -109,6 +109,15 @@ describe('country getter', () => {
   });
 });
 
+describe('city slug getter', () => {
+  test('Returns a URI-friendly slug', () => {
+    const testCityName = 'Weird city; name: with / special characters?';
+    const { location } = new JobPosting(srPostingData);
+    location.city = testCityName;
+    expect(location.citySlug).toBe(encodeURIComponent(testCityName.toLocaleLowerCase()));
+  });
+});
+
 describe('url getter', () => {
   test('Returns correct job ad URL', () => {
     const job = new JobPosting(srPostingData);
