@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.0] - 2019-06-10
+
+### Added
+- Job locations now have a `.uri` getter
+- Support for all countries' names
+
+### Changed
+- **BREAKING**: Job location's `.citySlug` getter may produce different output than before, as it kebabcases the input before URI encoding it
 
 ## [1.1.0] - 2019-03-07
 
