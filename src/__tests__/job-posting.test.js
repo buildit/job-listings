@@ -1,8 +1,8 @@
 import JobPosting, { getJobPostings } from '../job-posting';
+import JobLocation from '../job-location';
 import { getJobAdUrl } from '../sr-api';
 import {
   builditTrId as trId,
-  countryCodes,
   wiproDigitalId as companyId,
 } from '../constants';
 
@@ -78,6 +78,7 @@ describe('constructor()', () => {
     expect(job.title).toBe(srPostingData.name);
     expect(job.companyId).toBe(srPostingData.company.identifier);
     expect(job.experienceLevel).toBe(srPostingData.experienceLevel.label);
+    expect(job.location).toBeInstanceOf(JobLocation);
     expect(job.location.city).toBe(srPostingData.location.city);
     expect(job.location.region).toBe(srPostingData.location.region);
     expect(job.location.countryCode).toBe(srPostingData.location.country);
@@ -88,22 +89,6 @@ describe('constructor()', () => {
   test(('Initialises tracking ID when one is provided'), () => {
     const job = new JobPosting(srPostingData, trId);
     expect(job.trId).toBe(trId);
-  });
-});
-
-describe('country getter', () => {
-  test('Returns country names for known country codes', () => {
-    const { location } = new JobPosting(srPostingData);
-    Object.keys(countryCodes).forEach((countryCode) => {
-      location.countryCode = countryCode;
-      expect(location.country).toBe(countryCodes[countryCode]);
-    });
-  });
-
-  test('Throws a ReferenceError for unknown country codes', () => {
-    const { location } = new JobPosting(srPostingData);
-    location.countryCode = 'xxx';
-    expect(location.country).toBeUndefined();
   });
 });
 
@@ -125,7 +110,6 @@ describe('url getter', () => {
     ));
   });
 });
-
 
 describe('getJobPostings()', () => {
   test('returns promise that resolves to an array', async () => {
