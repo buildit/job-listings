@@ -1,3 +1,4 @@
+import kebabcase from 'lodash.kebabcase';
 import { getName } from 'country-list';
 
 export default class JobLocation {
@@ -12,7 +13,7 @@ export default class JobLocation {
   }
 
   get citySlug() {
-    return encodeURIComponent(this.city.toLocaleLowerCase());
+    return encodeURIComponent(kebabcase(this.city));
   }
 
   /**

@@ -36,17 +36,17 @@ describe('country getter', () => {
 
 describe('city slug getter', () => {
   test('Returns a URI-friendly slug', () => {
-    const testCityName = 'Weird city; name: with / special characters?';
+    const testCityName = 'Weird çity; name: 패션뷰티 with / special charäctèrs?';
+    const testCitySlug = 'weird-city-name-%ED%8C%A8%EC%85%98%EB%B7%B0%ED%8B%B0-with-special-characters';
     const loc = new JobLocation(srLocationData);
     loc.city = testCityName;
-    expect(loc.citySlug).toBe(encodeURIComponent(testCityName.toLocaleLowerCase()));
+    expect(loc.citySlug).toBe(testCitySlug);
   });
 });
 
 describe('uri getter', () => {
   test('Returns correct location URI', () => {
     const loc = new JobLocation(srLocationData);
-    expect(loc.uri).toContain(loc.citySlug);
-    expect(loc.uri).toContain(loc.countryCode);
+    expect(loc.uri).toBe('https://buildit.wiprodigital.com/thing/job-location/ie/dublin');
   });
 });

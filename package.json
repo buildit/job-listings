@@ -37,7 +37,8 @@
   "homepage": "https://github.com/buildit/fetch-job-listings#readme",
   "dependencies": {
     "country-list": "^2.1.1",
-    "cross-fetch": "^3.0.4"
+    "cross-fetch": "^3.0.4",
+    "lodash.kebabcase": "^4.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
